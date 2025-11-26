@@ -187,7 +187,7 @@ export class UserAuthService {
 
     return this.jwtService.sign(payload, {
       expiresIn: authConfig.expires,
-    });
+    } as any);
   }
 }
 

@@ -27,7 +27,7 @@ export class AdminAuthService {
 
     const token = this.jwtService.sign(payload, {
       expiresIn: authConfig.expires,
-    });
+    } as any);
 
     return { token };
   }
