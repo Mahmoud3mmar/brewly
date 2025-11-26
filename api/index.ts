@@ -1,31 +1,47 @@
 // Root-level API handler for Vercel
 // This file is in the root so Vercel can find dependencies in node_modules
-// Register tsconfig-paths to resolve path aliases at runtime
-import { register } from 'tsconfig-paths';
-import * as path from 'path';
+// Register tsconfig-paths to resolve path aliases at runtime - MUST be first
+// Use require to ensure it runs synchronously before any imports
+// This must be in a try-catch because tsconfig-paths might not be available during initial compilation
+(function registerPathAliases() {
+  try {
+    // Use require to ensure synchronous execution before any imports
+    const tsconfigPaths = require('tsconfig-paths');
+    const path = require('path');
+    
+    // Get the project root - in Vercel, __dirname is /var/task/api, so go up one level
+    const projectRoot = path.resolve(__dirname, '..');
+    
+    tsconfigPaths.register({
+      baseUrl: projectRoot,
+      paths: {
+        '@./auth': ['libs/auth/src/index.ts'],
+        '@./auth/*': ['libs/auth/src/lib/*'],
+        '@./common': ['libs/common/src/index.ts'],
+        '@./common/*': ['libs/common/src/lib/*'],
+        '@./config': ['libs/config/src/index.ts'],
+        '@./config/*': ['libs/config/src/lib/*'],
+        '@./contract': ['libs/contract/src/index.ts'],
+        '@./contract/*': ['libs/contract/src/lib/*'],
+        '@./database': ['libs/database/src/index.ts'],
+        '@./database/*': ['libs/database/src/lib/*'],
+        '@./logger': ['libs/logger/src/index.ts'],
+        '@./logger/*': ['libs/logger/src/lib/*'],
+        '@./mail': ['libs/mail/src/index.ts'],
+        '@./mail/*': ['libs/mail/src/lib/*'],
+        '@./user': ['libs/user/src/index.ts'],
+        '@./user/*': ['libs/user/src/lib/*'],
+      },
+    });
+    console.log('[api/index.ts] Path aliases registered successfully');
+  } catch (error: any) {
+    // If tsconfig-paths is not available, log but don't fail
+    // This might happen during initial compilation
+    console.warn('[api/index.ts] Failed to register tsconfig-paths:', error?.message || error);
+    console.warn('[api/index.ts] Path aliases may not be resolved. Ensure tsconfig-paths is installed.');
+  }
+})();
 
-// Register path aliases from tsconfig.base.json
-register({
-  baseUrl: path.join(__dirname, '..'),
-  paths: {
-    '@./auth': ['libs/auth/src/index.ts'],
-    '@./auth/*': ['libs/auth/src/lib/*'],
-    '@./common': ['libs/common/src/index.ts'],
-    '@./common/*': ['libs/common/src/lib/*'],
-    '@./config': ['libs/config/src/index.ts'],
-    '@./config/*': ['libs/config/src/lib/*'],
-    '@./contract': ['libs/contract/src/index.ts'],
-    '@./contract/*': ['libs/contract/src/lib/*'],
-    '@./database': ['libs/database/src/index.ts'],
-    '@./database/*': ['libs/database/src/lib/*'],
-    '@./logger': ['libs/logger/src/index.ts'],
-    '@./logger/*': ['libs/logger/src/lib/*'],
-    '@./mail': ['libs/mail/src/index.ts'],
-    '@./mail/*': ['libs/mail/src/lib/*'],
-    '@./user': ['libs/user/src/index.ts'],
-    '@./user/*': ['libs/user/src/lib/*'],
-  },
-});
 import { NestFactory } from '@nestjs/core';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
