@@ -1,7 +1,31 @@
 // Root-level API handler for Vercel
 // This file is in the root so Vercel can find dependencies in node_modules
 // Register tsconfig-paths to resolve path aliases at runtime
-import 'tsconfig-paths/register';
+import { register } from 'tsconfig-paths';
+import * as path from 'path';
+
+// Register path aliases from tsconfig.base.json
+register({
+  baseUrl: path.join(__dirname, '..'),
+  paths: {
+    '@./auth': ['libs/auth/src/index.ts'],
+    '@./auth/*': ['libs/auth/src/lib/*'],
+    '@./common': ['libs/common/src/index.ts'],
+    '@./common/*': ['libs/common/src/lib/*'],
+    '@./config': ['libs/config/src/index.ts'],
+    '@./config/*': ['libs/config/src/lib/*'],
+    '@./contract': ['libs/contract/src/index.ts'],
+    '@./contract/*': ['libs/contract/src/lib/*'],
+    '@./database': ['libs/database/src/index.ts'],
+    '@./database/*': ['libs/database/src/lib/*'],
+    '@./logger': ['libs/logger/src/index.ts'],
+    '@./logger/*': ['libs/logger/src/lib/*'],
+    '@./mail': ['libs/mail/src/index.ts'],
+    '@./mail/*': ['libs/mail/src/lib/*'],
+    '@./user': ['libs/user/src/index.ts'],
+    '@./user/*': ['libs/user/src/lib/*'],
+  },
+});
 import { NestFactory } from '@nestjs/core';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
