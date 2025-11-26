@@ -4,16 +4,17 @@
   "outputDirectory": "dist/apps/mob-api",
   "installCommand": "pnpm install",
   "framework": null,
-  "rewrites": [
+  "builds": [
     {
-      "source": "/api/(.*)",
-      "destination": "/apps/mob-api/api/index.ts"
+      "src": "apps/mob-api/api/index.ts",
+      "use": "@vercel/node"
     }
   ],
-  "functions": {
-    "apps/mob-api/api/index.ts": {
-      "runtime": "@vercel/node"
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "apps/mob-api/api/index.ts"
     }
-  }
+  ]
 }
 
