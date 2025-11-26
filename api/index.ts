@@ -1,5 +1,7 @@
 // Root-level API handler for Vercel
 // This file is in the root so Vercel can find dependencies in node_modules
+// Register tsconfig-paths to resolve path aliases at runtime
+import 'tsconfig-paths/register';
 import { NestFactory } from '@nestjs/core';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
