@@ -1,0 +1,37 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ESNext",
+    "lib": ["ES2022"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@./auth": ["libs/auth/src/index.ts"],
+      "@./auth/*": ["libs/auth/src/lib/*"],
+      "@./common": ["libs/common/src/index.ts"],
+      "@./common/*": ["libs/common/src/lib/*"],
+      "@./config": ["libs/config/src/index.ts"],
+      "@./config/*": ["libs/config/src/lib/*"],
+      "@./contract": ["libs/contract/src/index.ts"],
+      "@./contract/*": ["libs/contract/src/lib/*"],
+      "@./database": ["libs/database/src/index.ts"],
+      "@./database/*": ["libs/database/src/lib/*"],
+      "@./logger": ["libs/logger/src/index.ts"],
+      "@./logger/*": ["libs/logger/src/lib/*"],
+      "@./mail": ["libs/mail/src/index.ts"],
+      "@./mail/*": ["libs/mail/src/lib/*"],
+      "@./user": ["libs/user/src/index.ts"],
+      "@./user/*": ["libs/user/src/lib/*"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

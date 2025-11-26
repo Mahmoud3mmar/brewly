@@ -1,0 +1,53 @@
+{
+  "name": "mob-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/mob-api/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/mob-api",
+        "main": "apps/mob-api/src/main.ts",
+        "tsConfig": "apps/mob-api/tsconfig.app.json",
+        "assets": ["apps/mob-api/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/mob-api/webpack.config.js"
+      },
+      "configurations": {
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        },
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "sourceMap": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "mob-api:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "mob-api:build:development"
+        },
+        "production": {
+          "buildTarget": "mob-api:build:production"
+        }
+      }
+    }
+  }
+}
