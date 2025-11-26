@@ -32,7 +32,7 @@ async function createApp(): Promise<express.Express> {
     }),
   );
 
-  // Set global prefix - Vercel routes /api/* to this handler, so we need /api prefix
+  // Set global prefix - Vercel routes /api/* to handler with full path /api/...
   app.setGlobalPrefix(appConfig.apiPrefix);
 
   // Swagger Configuration
@@ -55,7 +55,7 @@ async function createApp(): Promise<express.Express> {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  // Swagger will be available at /api (matching the global prefix)
+  // Swagger will be available at /api (matching global prefix)
   SwaggerModule.setup(appConfig.apiPrefix, app, document, {
     swaggerOptions: {
       persistAuthorization: true,
