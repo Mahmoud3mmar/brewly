@@ -85,8 +85,8 @@ export default async function handler(req: Request, res: Response): Promise<void
     });
   } catch (error) {
     console.error('Handler error:', error);
-    if (!res.headersSent) {
-      (res as Response).status(500).json({
+    if (!(res as any).headersSent) {
+      (res as any).status(500).json({
         statusCode: 500,
         message: 'Internal server error',
         error: error instanceof Error ? error.message : 'Unknown error',
