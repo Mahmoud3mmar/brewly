@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import * as express from 'express';
+import express from 'express';
 import { AppModule } from '../src/app/app.module';
 import { AppConfig } from '@./config';
 
@@ -31,7 +31,9 @@ async function createApp(): Promise<express.Express> {
     }),
   );
 
-  app.setGlobalPrefix(appConfig.apiPrefix);
+  // Vercel already routes through /api, so we don't need the global prefix here
+  // The routes will be: /api/v1/auth/* (from ControllerDecorator)
+  // app.setGlobalPrefix(appConfig.apiPrefix);
 
   await app.init();
   cachedApp = expressApp;
