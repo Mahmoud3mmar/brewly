@@ -39,8 +39,12 @@ async function createApp(): Promise<express.Express> {
   return expressApp;
 }
 
-export default async function handler(req: express.Request, res: express.Response) {
+export default async function handler(req: express.Request, res: express.Response): Promise<void> {
   const app = await createApp();
-  return app(req, res);
+  return new Promise<void>((resolve) => {
+    app(req, res, () => {
+      resolve();
+    });
+  });
 }
 
