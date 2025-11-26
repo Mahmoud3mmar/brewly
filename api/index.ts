@@ -7,7 +7,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import express, { Request, Response } from 'express';
 import { AppModule } from '../apps/mob-api/src/app/app.module';
-import { AppConfig } from '@./config';
+import { AppConfig } from '../libs/config/src/lib/app.config';
 
 let cachedApp: express.Express;
 
