@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "buildCommand": "pnpm nx build mob-api --prod",
+  "outputDirectory": "dist/apps/mob-api",
+  "installCommand": "pnpm install",
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/apps/mob-api/api/index.ts"
+    }
+  ],
+  "functions": {
+    "apps/mob-api/api/index.ts": {
+      "runtime": "@vercel/node"
+    }
+  }
+}
+
