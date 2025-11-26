@@ -69,12 +69,25 @@ async function createApp(): Promise<express.Express> {
 }
 
 export default async function handler(req: express.Request, res: express.Response): Promise<void> {
-  const app = await createApp();
-  return new Promise<void>((resolve) => {
-    // Use the Express app as a request handler
-    (app as any)(req, res, () => {
-      resolve();
+  try {
+    const app = await createApp();
+    return new Promise<void>((resolve, reject) => {
+      // Use the Express app as a request handler
+      (app as any)(req, res, (err: any) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
     });
-  });
+  } catch (error) {
+    console.error('Handler error:', error);
+    res.status(500).json({
+      statusCode: 500,
+      message: 'Internal server error',
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
 }
 
