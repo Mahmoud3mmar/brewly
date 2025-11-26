@@ -1,7 +1,7 @@
 import { Injectable, ExecutionContext, UnauthorizedException } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { UserRepository } from '@./user';
-import { ContextProvider } from '@./common';
+import { UserRepository } from '../../../../../libs/user/src'; 
+import { ContextProvider } from '../../../../../libs/common/src';
 import { ClsService } from 'nestjs-cls';
 
 @Injectable()

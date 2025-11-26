@@ -3,8 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { SnakeNamingStrategy } from './utils/snake-naming-strategy.utils';
-import { DatabaseConfig } from '@./config';
-import { User } from '@./user';
+import { DatabaseConfig } from '../../../../libs/config/src/lib/database.config';  
+import { User } from '../../../../libs/user/src';
 
 @Module({
   imports: [
@@ -70,7 +70,10 @@ import { User } from '@./user';
         return options;
       },
       inject: [ConfigService],
-      dataSourceFactory: async (options: DataSourceOptions) => {
+      dataSourceFactory: async (options: DataSourceOptions | undefined) => {
+        if (!options) {
+          throw new Error('Database configuration is missing');
+        }
         const dataSource = new DataSource(options);
         return dataSource.initialize();
       },

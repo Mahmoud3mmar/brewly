@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as nodemailer from 'nodemailer';
-import { MailConfig } from '@./config';
+import { MailConfig } from '../../../config/src/lib/mail.config';
 import { getOtpEmailTemplate } from './templates/otp-email.template';
 
 @Injectable()

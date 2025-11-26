@@ -1,8 +1,8 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { MailService } from '@./mail';
-import { UserRepository } from '@./user';
+import { MailService } from '../../../../../../libs/mail/src';  
+import { UserRepository } from '../../../../../../libs/user/src';
 
 export interface OtpRecord {
   email: string;

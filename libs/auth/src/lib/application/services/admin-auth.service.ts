@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { AuthConfig } from '@./config';
+import { AuthConfig } from '../../../../../../libs/config/src/lib/auth.config.js';
 import { TokenTypeEnum } from '../../enums/token-type.enum';
 import { AdminJwtPayloadType } from '../../strategies/types/jwt-payload.type';
 

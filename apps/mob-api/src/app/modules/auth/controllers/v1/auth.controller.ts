@@ -13,9 +13,9 @@ import {
   ApiBody,
   ApiBearerAuth,
 } from '@nestjs/swagger';
-import { ControllerDecorator, ResponseGenerator } from '@./common';
-import { UserAuth } from '@./auth';
-import { ContextProvider } from '@./common';
+import { ControllerDecorator, ResponseGenerator } from '../../../../../../../../libs/common/src';
+import { UserAuth } from '../../../../../../../../libs/auth/src';
+import { ContextProvider } from '../../../../../../../../libs/common/src';
 import {
   UserSignupDto,
   UserLoginDto,
@@ -23,7 +23,7 @@ import {
   PasswordResetConfirmDto,
   UserProfileDto,
   OtpVerifyDto,
-} from '@./contract';
+} from '../../../../../../../../libs/contract/src/lib/website/v1';
 import { AuthService } from '../../services/auth.service';
 
 @ApiTags('auth')
