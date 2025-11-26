@@ -3,18 +3,6 @@
   "buildCommand": "pnpm nx build mob-api --prod",
   "outputDirectory": "dist/apps/mob-api",
   "installCommand": "pnpm install",
-  "framework": null,
-  "builds": [
-    {
-      "src": "apps/mob-api/api/index.ts",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "apps/mob-api/api/index.ts"
-    }
-  ]
+  "framework": null
 }
 

@@ -1,10 +1,12 @@
+// Root-level API handler for Vercel
+// This file is in the root so Vercel can find dependencies in node_modules
 import { NestFactory } from '@nestjs/core';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import express, { Request, Response } from 'express';
-import { AppModule } from '../src/app/app.module';
+import { AppModule } from '../apps/mob-api/src/app/app.module';
 import { AppConfig } from '@./config';
 
 let cachedApp: express.Express;
