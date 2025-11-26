@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import express from 'express';
 import { AppModule } from '../src/app/app.module';
@@ -31,9 +32,35 @@ async function createApp(): Promise<express.Express> {
     }),
   );
 
-  // Vercel already routes through /api, so we don't need the global prefix here
-  // The routes will be: /api/v1/auth/* (from ControllerDecorator)
-  // app.setGlobalPrefix(appConfig.apiPrefix);
+  // Set global prefix - Vercel routes /api/* to this handler, so we need /api prefix
+  app.setGlobalPrefix(appConfig.apiPrefix);
+
+  // Swagger Configuration
+  const config = new DocumentBuilder()
+    .setTitle('Brewly Mob-API')
+    .setDescription('Brewly Mobile API Documentation')
+    .setVersion('1.0')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        description: 'Enter JWT token',
+        in: 'header',
+      },
+      'JWT-auth',
+    )
+    .addTag('auth', 'Authentication endpoints')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  // Swagger will be available at /api (matching the global prefix)
+  SwaggerModule.setup(appConfig.apiPrefix, app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+  });
 
   await app.init();
   cachedApp = expressApp;
