@@ -1,17 +1,9 @@
 {
   "version": 2,
-  "buildCommand": "pnpm nx build mob-api --prod",
+  "buildCommand": "pnpm nx build mob-api --prod && cp -r apps/mob-api/src dist/apps/mob-api/ && cp -r libs dist/apps/mob-api/",
   "outputDirectory": "dist/apps/mob-api",
   "installCommand": "pnpm install",
   "framework": null,
-  "functions": {
-    "api/index.ts": {
-      "includeFiles": [
-        "apps/mob-api/src/**",
-        "libs/**"
-      ]
-    }
-  },
   "builds": [
     {
       "src": "api/index.ts",
