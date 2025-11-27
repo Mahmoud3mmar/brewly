@@ -76,7 +76,10 @@ async function createApp(): Promise<express.Express> {
     }),
   );
 
-  // Swagger Configuration - set up before global prefix
+  // Set global prefix - Vercel routes /api/* to handler with full path /api/...
+  app.setGlobalPrefix(appConfig.apiPrefix);
+
+  // Swagger Configuration
   const config = new DocumentBuilder()
     .setTitle('Brewly Mob-API')
     .setDescription('Brewly Mobile API Documentation')
@@ -97,14 +100,12 @@ async function createApp(): Promise<express.Express> {
 
   const document = SwaggerModule.createDocument(app, config);
   // Swagger will be available at /api/docs
-  SwaggerModule.setup('docs', app, document, {
+  const swaggerPath = `${appConfig.apiPrefix}/docs`;
+  SwaggerModule.setup(swaggerPath, app, document, {
     swaggerOptions: {
       persistAuthorization: true,
     },
   });
-
-  // Set global prefix - Vercel routes /api/* to handler with full path /api/...
-  app.setGlobalPrefix(appConfig.apiPrefix);
 
   await app.init();
   cachedApp = expressApp;
