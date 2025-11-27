@@ -4,14 +4,9 @@
   "outputDirectory": "dist/apps/mob-api",
   "installCommand": "pnpm install",
   "framework": null,
-  "builds": [
-    {
-      "src": "api/index.ts",
-      "use": "@vercel/node"
-    }
-  ],
   "functions": {
     "api/index.ts": {
+      "runtime": "@vercel/node",
       "includeFiles": "node_modules/swagger-ui-dist/**"
     }
   },
