@@ -101,7 +101,17 @@ async function createApp(): Promise<express.Express> {
   const document = SwaggerModule.createDocument(app, config);
   // Swagger will be available at /api/docs
   const swaggerPath = `${appConfig.apiPrefix}/docs`;
+  
+  // For serverless environments (Vercel), use CDN for Swagger UI assets
+  // This avoids issues with static file serving in serverless functions
   SwaggerModule.setup(swaggerPath, app, document, {
+    customSiteTitle: 'Brewly API Documentation',
+    // Use CDN URLs for all Swagger UI assets
+    customJs: [
+      'https://unpkg.com/swagger-ui-dist@5.30.2/swagger-ui-bundle.js',
+      'https://unpkg.com/swagger-ui-dist@5.30.2/swagger-ui-standalone-preset.js',
+    ],
+    customCssUrl: 'https://unpkg.com/swagger-ui-dist@5.30.2/swagger-ui.css',
     swaggerOptions: {
       persistAuthorization: true,
     },
