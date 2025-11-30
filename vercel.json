@@ -6,7 +6,9 @@
   "framework": null,
   "functions": {
     "api/index.ts": {
-      "runtime": "@vercel/node",
+      "runtime": "nodejs20.x",
+      "memory": 1024,
+      "maxDuration": 30,
       "includeFiles": "node_modules/swagger-ui-dist/**"
     }
   },
